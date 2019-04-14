@@ -1,4 +1,4 @@
-Import-Module (Join-Path (Split-Path $script:MyInvocation.MyCommand.Path) "Microsoft.PowerApps.Administration.PowerShell.psm1") -Force
+Import-Module Microsoft.PowerApps.Administration.PowerShell
 
 # file paths
 $AppFilePath = ".\Apps.csv"
@@ -74,7 +74,7 @@ Add-Content -Path $FlowRoleAssignmentsFilePath -Value $flowRoleAssignmentsHeader
 Add-PowerAppsAccount
 
 #populate the app files
-$apps = Get-AdminApp
+$apps = Get-AdminPowerApp
 
 foreach($app in $apps)
 {
@@ -127,7 +127,7 @@ foreach($app in $apps)
 
     #Get all of the details for each user the app is shared with
     $principalList = ""
-    foreach($appRole in ($app | Get-AdminAppRoleAssignment))
+    foreach($appRole in ($app | Get-AdminPowerAppRoleAssignment))
     {
         $RoleEnvironmentName = $appRole.EnvironmentName
         $RoleType = $appRole.RoleType
